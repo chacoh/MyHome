@@ -17,6 +17,7 @@
 package com.myhome.controllers;
 
 import com.myhome.controllers.dto.AmenityDto;
+import com.myhome.controllers.dto.AmenityBookingDto;
 import com.myhome.controllers.mapper.AmenityApiMapper;
 import com.myhome.controllers.request.AddAmenityRequest;
 import com.myhome.controllers.request.UpdateAmenityRequest;
@@ -144,4 +145,26 @@ public class AmenityController {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
   }
+
+  @Operation(
+          description = "Book an amenity",
+          responses = {
+                  @ApiResponse(responseCode = "204", description = "If amenity booked"),
+                  @ApiResponse(responseCode = "404", description = "If params are invalid"),
+          }
+  )
+  @PostMapping(
+          path = "/amenities/{amenityId}",
+          produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+  )
+  public ResponseEntity<AddBookingResponse> addBookingforAmenity(
+          @RequestBody AddBookingRequest request,
+          @PathVariable String amenityId) {
+    return amenitySDJpaService.addBooking(request.getBooking(), amenityId)
+            .map(AddBookingResponse::new)
+            .map(ResponseEntity::ok)
+            .orElse(ResponseEntity.notFound().build());
+  }
+
+
 }
