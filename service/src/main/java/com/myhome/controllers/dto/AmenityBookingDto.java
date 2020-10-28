@@ -16,6 +16,7 @@
 
 package com.myhome.controllers.dto;
 
+import com.myhome.domain.Amenity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,10 +29,9 @@ import lombok.With;
 @With
 @Data
 public class AmenityBookingDto {
-    private Long id;
-    private String bookingId;
-    private String amenityId;
-    private String communityId;
-    private String bookingDate;
-    private String bookingLength;
+    private String amenityBookingItemId;
+    private Amenity amenity;
+    private String bookingStartDate;
+    private String bookingEndDate;
+    private String bookingUser;
 }
