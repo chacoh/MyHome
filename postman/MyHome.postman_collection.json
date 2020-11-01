@@ -777,6 +777,29 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Add amenity booking",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"amenity\": \"Test Amenity ID\",\n    \"bookingStartDate\": \"Test Start Date\",\n    \"bookingEndDate\": \"Test End Date\",\n    \"bookingUser\": \"Test User\"\n}\n"
+				},
+				"url": {
+					"raw": "http://{{ENV_URL}}/amenities/{{AMENITY_ID}}",
+					"protocol": "http",
+					"host": [
+						"{{ENV_URL}}"
+					],
+					"path": [
+						"amenities",
+						"{{AMENITY_ID}}"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
