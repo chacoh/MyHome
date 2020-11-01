@@ -16,6 +16,7 @@
 
 package com.myhome.services;
 
+import com.myhome.controllers.dto.AmenityBookingDto;
 import com.myhome.controllers.dto.AmenityDto;
 import com.myhome.domain.Amenity;
 import java.util.List;
@@ -35,4 +36,6 @@ public interface AmenityService {
   boolean updateAmenity(AmenityDto updatedAmenityDto);
 
   boolean deleteBooking(String bookingId);
+
+  Optional<AmenityBookingDto> addBooking(AmenityBookingDto newBooking);
 }
