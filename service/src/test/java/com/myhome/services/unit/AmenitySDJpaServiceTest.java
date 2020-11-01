@@ -28,7 +28,6 @@ import com.myhome.repositories.CommunityRepository;
 import com.myhome.services.CommunityService;
 import com.myhome.services.springdatajpa.AmenitySDJpaService;
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;

@@ -21,8 +21,8 @@ import com.myhome.domain.AmenityBookingItem;
 import org.mapstruct.Mapper;
 
 @Mapper
-public interface AmenityBookingMapper {
+public interface AmenityBookingItemMapper {
 
-    AmenityBookingItem amenityBookingDtoToAmenityBookingItem(AmenityBookingDto amenityBookingDto);
+    AmenityBookingItem amenityBookingDtoToAmenityBooking(AmenityBookingDto amenityBookingDto);
 
 }

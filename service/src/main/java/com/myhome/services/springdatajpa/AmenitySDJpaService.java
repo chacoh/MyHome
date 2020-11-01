@@ -18,7 +18,7 @@ package com.myhome.services.springdatajpa;
 
 import com.myhome.controllers.dto.AmenityDto;
 import com.myhome.controllers.dto.AmenityBookingDto;
-import com.myhome.controllers.dto.mapper.AmenityBookingMapper;
+import com.myhome.controllers.dto.mapper.AmenityBookingItemMapper;
 import com.myhome.controllers.mapper.AmenityApiMapper;
 import com.myhome.domain.Amenity;
 import com.myhome.domain.AmenityBookingItem;
@@ -43,7 +43,7 @@ public class AmenitySDJpaService implements AmenityService {
   private final CommunityService communityService;
   private final AmenityApiMapper amenityApiMapper;
   private final AmenityBookingItemRepository bookingRepository;
-  private final AmenityBookingMapper amenityBookingMapper;
+  private final AmenityBookingItemMapper amenityBookingItemMapper;
 
   @Override
   public Optional<List<AmenityDto>> createAmenities(Set<AmenityDto> amenities, String communityId) {
@@ -124,7 +124,7 @@ public class AmenitySDJpaService implements AmenityService {
             return Optional.empty();
         }
         newBooking.setAmenityBookingItemId(generateUniqueId());
-        AmenityBookingItem newBookingItem = amenityBookingMapper.amenityBookingDtoToAmenityBookingItem(newBooking);
+        AmenityBookingItem newBookingItem = amenityBookingItemMapper.amenityBookingDtoToAmenityBookingItem(newBooking);
         bookingRepository.save(newBookingItem);
         return Optional.of(newBooking);
     }
