@@ -17,18 +17,19 @@
 package com.myhome.services.springdatajpa;
 
 import com.myhome.controllers.dto.AmenityDto;
+import com.myhome.controllers.dto.AmenityBookingDto;
+import com.myhome.controllers.dto.mapper.AmenityBookingMapper;
 import com.myhome.controllers.mapper.AmenityApiMapper;
 import com.myhome.domain.Amenity;
+import com.myhome.domain.AmenityBookingItem;
 import com.myhome.domain.Community;
 import com.myhome.repositories.AmenityBookingItemRepository;
 import com.myhome.repositories.AmenityRepository;
 import com.myhome.repositories.CommunityRepository;
 import com.myhome.services.AmenityService;
 import com.myhome.services.CommunityService;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+
+import java.util.*;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,7 @@ public class AmenitySDJpaService implements AmenityService {
   private final CommunityService communityService;
   private final AmenityApiMapper amenityApiMapper;
   private final AmenityBookingItemRepository bookingRepository;
+  private final AmenityBookingMapper amenityBookingMapper;
 
   @Override
   public Optional<List<AmenityDto>> createAmenities(Set<AmenityDto> amenities, String communityId) {
@@ -113,5 +115,21 @@ public class AmenitySDJpaService implements AmenityService {
                     return true;
                 })
                 .orElse(false);
+    }
+
+    @Override
+    public Optional<AmenityBookingDto> addBooking(AmenityBookingDto newBooking) {
+        final Optional<Amenity> amenity = getAmenityDetails(newBooking.getAmenity());
+        if (!amenity.isPresent()) {
+            return Optional.empty();
+        }
+        newBooking.setAmenityBookingItemId(generateUniqueId());
+        AmenityBookingItem newBookingItem = amenityBookingMapper.amenityBookingDtoToAmenityBookingItem(newBooking);
+        bookingRepository.save(newBookingItem);
+        return Optional.of(newBooking);
+    }
+
+    private String generateUniqueId() {
+        return UUID.randomUUID().toString();
     }
 }
