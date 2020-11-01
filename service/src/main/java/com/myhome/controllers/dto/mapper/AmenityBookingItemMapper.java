@@ -25,4 +25,5 @@ public interface AmenityBookingItemMapper {
 
     AmenityBookingItem amenityBookingDtoToAmenityBooking(AmenityBookingDto amenityBookingDto);
 
+    AmenityBookingDto amenityBookingItemToAmenityBookingDto(AmenityBookingItem amenityBookingItem);
 }
