@@ -19,8 +19,10 @@ package com.myhome.controllers;
 import com.myhome.controllers.dto.AmenityDto;
 import com.myhome.controllers.dto.AmenityBookingDto;
 import com.myhome.controllers.mapper.AmenityApiMapper;
+import com.myhome.controllers.request.AddAmenityBookingRequest;
 import com.myhome.controllers.request.AddAmenityRequest;
 import com.myhome.controllers.request.UpdateAmenityRequest;
+import com.myhome.controllers.response.amenity.AddAmenityBookingResponse;
 import com.myhome.controllers.response.amenity.AddAmenityResponse;
 import com.myhome.controllers.response.amenity.GetAmenityDetailsResponse;
 import com.myhome.domain.Amenity;
@@ -157,11 +159,11 @@ public class AmenityController {
           path = "/amenities/{amenityId}",
           produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
   )
-  public ResponseEntity<AddBookingResponse> addBookingforAmenity(
-          @RequestBody AddBookingRequest request,
+  public ResponseEntity<AddAmenityBookingResponse> addBookingforAmenity(
+          @RequestBody AddAmenityBookingRequest request,
           @PathVariable String amenityId) {
-    return amenitySDJpaService.addBooking(request.getBooking(), amenityId)
-            .map(AddBookingResponse::new)
+    return amenitySDJpaService.addBooking(request.getAmenityBookings(), amenityId)
+            .map(AddAmenityBookingResponse::new)
             .map(ResponseEntity::ok)
             .orElse(ResponseEntity.notFound().build());
   }
