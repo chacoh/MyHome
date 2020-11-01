@@ -17,6 +17,7 @@
 package com.myhome.controllers.dto;
 
 import com.myhome.domain.Amenity;
+import com.myhome.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,5 +34,5 @@ public class AmenityBookingDto {
     private Amenity amenity;
     private String bookingStartDate;
     private String bookingEndDate;
-    private String bookingUser;
+    private User bookingUser;
 }
