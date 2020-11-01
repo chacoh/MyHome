@@ -37,5 +37,5 @@ public interface AmenityService {
 
   boolean deleteBooking(String bookingId);
 
-  Optional<AmenityBookingDto> addBooking(AmenityBookingDto newBooking);
+  Optional<List<AmenityBookingDto>> addBooking(Set<AmenityBookingDto> newBookings, String amenityId);
 }

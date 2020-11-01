@@ -118,15 +118,23 @@ public class AmenitySDJpaService implements AmenityService {
     }
 
     @Override
-    public Optional<AmenityBookingDto> addBooking(AmenityBookingDto newBooking) {
-        final Optional<Amenity> amenity = getAmenityDetails(newBooking.getAmenity());
+    public Optional<List<AmenityBookingDto>> addBooking(Set<AmenityBookingDto> newBookings, String amenityId) {
+        final Optional<Amenity> amenity = getAmenityDetails(amenityId);
         if (!amenity.isPresent()) {
             return Optional.empty();
         }
-        newBooking.setAmenityBookingItemId(generateUniqueId());
-        AmenityBookingItem newBookingItem = amenityBookingItemMapper.amenityBookingDtoToAmenityBookingItem(newBooking);
-        bookingRepository.save(newBookingItem);
-        return Optional.of(newBooking);
+        final List<AmenityBookingItem> amenityBookingList = newBookings.stream()
+                .map(amenityBookingItemMapper::amenityBookingDtoToAmenityBooking)
+                .map(amenityBookingItem -> {
+                    amenityBookingItem.setAmenity(amenity.get());
+                    return amenityBookingItem;
+                })
+                .collect(Collectors.toList());
+        final List<AmenityBookingDto> createdBookings =
+                bookingRepository.saveAll(amenityBookingList).stream()
+                .map(amenityBookingItemMapper::amenityBookingItemToAmenityBookingDto)
+                .collect(Collectors.toList());
+        return Optional.of(createdBookings);
     }
 
     private String generateUniqueId() {
